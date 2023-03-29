@@ -1,5 +1,7 @@
 import os
 import re
+from os.path import getctime
+import datetime 
 files = os.listdir('.')
 print(files)
 
@@ -8,17 +10,21 @@ print(files)
 
 f={}
 for i in files :
-	if i=='foto.py' : continue
+	if 'foto' in i or '.git' in i or 'READ' in i : continue
+	print(i,datetime.datetime.fromtimestamp(getctime(i)).strftime('%Y:%m'))
+	st=os.stat(i).st_mtime
+	print(i,os.stat(i))
+	print(i,"---",datetime.datetime.fromtimestamp(st))
 
+	match = re.search(r'ggg-(\d\d\d\d)(\d\d)', i) 
+	if match :
+		g,m=match[1],match[2]
 	match = re.search(r'photo-(\d\d\d\d)(\d\d)', i) 
 	if match :
-	g,m=match[1],match[2]
+		g,m=match[1],match[2]
 	match = re.search(r'photo-(\d\d\d\d)(\d\d)', i) 
 	if match :
-	g,m=match[1],match[2]
-	match = re.search(r'photo-(\d\d\d\d)(\d\d)', i) 
-	if match :
-	g,m=match[1],match[2]
+		g,m=match[1],match[2]
 
 
 	print(g,m)
