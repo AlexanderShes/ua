@@ -2,8 +2,9 @@ import os
 import re
 import datetime 
 import shutil
-files = os.listdir('.')
 fotodir='foto'
+nachdir='nachdir'
+files = os.listdir(nachdir)
 if not os.path.exists(fotodir):
 	os.mkdir(fotodir)
 print(len(files))
@@ -19,7 +20,7 @@ print(len(files))
 f={}
 for i in files :
 	if 'foto' in i or '.git' in i or 'READ' in i or '.' not in i : continue
-	st=str(datetime.datetime.fromtimestamp(os.stat(i).st_mtime))
+	st=str(datetime.datetime.fromtimestamp(os.stat(nachdir+"/"+i).st_mtime))
 #	print(i,os.stat(i))
 #	print(i,"---",st)
 	g,m = st[:4],st[5:7]
@@ -40,7 +41,6 @@ for y in f :
 			print(m)
 		for fil in f[y][m] :
 #			shutil.copy2(fil,fotodir+"/"+y+"/"+m)
-			shutil.move(fil,fotodir+"/"+y+"/"+m)
+			shutil.move(nachdir+"/"+fil,fotodir+"/"+y+"/"+m)
 #			os.replace(fil,fotodir+"/"+ y+"/"+m+"/")
 shutil.make_archive('foto', 'tar', './foto')
-
