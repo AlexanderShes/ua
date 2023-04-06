@@ -3,7 +3,7 @@ import re
 import datetime 
 import shutil
 fotodir='foto'
-nachdir='nachdir'
+nachdir='fotonach'
 files = os.listdir(nachdir)
 if not os.path.exists(fotodir):
 	os.mkdir(fotodir)
@@ -21,12 +21,7 @@ f={}
 for i in files :
 	if 'foto' in i or '.git' in i or 'READ' in i or '.' not in i : continue
 	st=str(datetime.datetime.fromtimestamp(os.stat(nachdir+"/"+i).st_mtime))
-#	print(i,os.stat(i))
-#	print(i,"---",st)
 	g,m = st[:4],st[5:7]
-#	print(g,m)
-#	continue
-#	g,m = i[4:8],i[8:10]
 	if g in f :
 		if m in f[g] : f[g][m].append(i)
 		else : f[g][m]=[i]	
